@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - node
+script:
+  - npm install
+  - npm run build
+deploy:
+  provider: heroku
+  api_key:
+    secure: dlBW68AP6O/T3FliqthLG9YAoPz47TLx9i2unAVjosvf5YVTE19MQrgmE/GFkdnnOkRGM86gF4rqIRoERXpYK+gdwhhCv0RjoGOy4bkRAjjbSrVu2hspas6LmcZKEETrxCADQNg0HGf4tWCNrn4GKpskV0zSsZsWOfImRDGaOQTa5pHv9sisFACajnjLFMtoTuA9WYw897gT8etvBVqquAU082iIumN8ow3/qHqx5G0Ea1lAfCoHrKu8JpKkroXwW1JFyPtosk4Ms2/Pnc/ZZMp5QM24R6zSEwYPhH3g6rXiiyq/Mo9cThVtXwTu1hEcIj255dfx0Sc/kmXXO3AuulQDSB90V55rcEoO1f2jZIft01CB9TXQ37vuJV24jsd9b7QmPBD2Gv9D9RFJ0rrX29KgkxRac2v4EnB4yKzmdN25xMe6eQnumMDR7mjloJqN/eGeXdoPdbBPFURuYdGvCZjFepmubNjCMZ7j54PVQ8+UPD+knRtKo/cOukmhxNWk/AEJfD986PiZVHbkb7npbjxRJPOub375bYggvkXdwlTfY8qszPXHa/n7sSztZJu9QHm+wG8o/5dR4JAwhVbAVzbW+AMCQaG49n8AwVNqD29rZR/jpRfcdh7b53P99zlmopHlXPqJGhDg4w6SWSxdIc1BjP+0E3vjpXBvrNxnbC4=
+  app: etsfrontend
+  on:
+    repo: AnaCaceres/ETSFrontEnd
