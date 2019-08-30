@@ -1,13 +1,15 @@
 language: node_js
 node_js:
-  - node
+- node
+branches:
+  only:
+  - master
 script:
-  - npm install
-  - npm run build
+- npm install
+- npm run build
 deploy:
   provider: heroku
   api_key:
-    secure: dlBW68AP6O/T3FliqthLG9YAoPz47TLx9i2unAVjosvf5YVTE19MQrgmE/GFkdnnOkRGM86gF4rqIRoERXpYK+gdwhhCv0RjoGOy4bkRAjjbSrVu2hspas6LmcZKEETrxCADQNg0HGf4tWCNrn4GKpskV0zSsZsWOfImRDGaOQTa5pHv9sisFACajnjLFMtoTuA9WYw897gT8etvBVqquAU082iIumN8ow3/qHqx5G0Ea1lAfCoHrKu8JpKkroXwW1JFyPtosk4Ms2/Pnc/ZZMp5QM24R6zSEwYPhH3g6rXiiyq/Mo9cThVtXwTu1hEcIj255dfx0Sc/kmXXO3AuulQDSB90V55rcEoO1f2jZIft01CB9TXQ37vuJV24jsd9b7QmPBD2Gv9D9RFJ0rrX29KgkxRac2v4EnB4yKzmdN25xMe6eQnumMDR7mjloJqN/eGeXdoPdbBPFURuYdGvCZjFepmubNjCMZ7j54PVQ8+UPD+knRtKo/cOukmhxNWk/AEJfD986PiZVHbkb7npbjxRJPOub375bYggvkXdwlTfY8qszPXHa/n7sSztZJu9QHm+wG8o/5dR4JAwhVbAVzbW+AMCQaG49n8AwVNqD29rZR/jpRfcdh7b53P99zlmopHlXPqJGhDg4w6SWSxdIc1BjP+0E3vjpXBvrNxnbC4=
+    secure: xIGwsbk7X1QcvunI4F0E4nmjciVU1UigmLbXTOz3Og0IJ/OkGJmnYZ8AEsfM7xGCBgp8h+UNUd9Wajw2BseTQspp7CYmqhXm5oqQOqkvNclmXX4JU4MyQqQzCl2Av5r6/sWERds+cCJU0HWx6IjTD1luruW0UOswQre1GZ2bZGkBdYdvGWg+ABQQqXFMdZe0MYqOr6oCsljNmHa7uU6T9sAjJxa5FnaaY3CUBza2uA69R13Grt1xphkTaNQkV+Ukgeet3+8jpdLu/4BhCh3zIsFNuvVkHy1qtao0BSa2P3JQMGANhuKHege8WjflJMTzWQPe7ZrhB9ecPUx4uV4Z0KzXmmKaobkTwEEvzq4yv3uxyXrbllAafzeSQ2N3LL0IWIAORohViRJ83L2utWB9a0SdMN+3h+5vJNJskRCqtwFhXW9kZv9lqvjP5ONhgaGG4LFQtF4+qQvZLlj81qUhAoYCJ5PAN0AsZKYkSSJxwPWS/WhGU+Q9Z1N4Jgo9hstukySB/VoNBS+73aVCLBA+R6JMpBod509qxmr4L88F6DexJrOuQjKN3fpzVrIPUBh+UDL/YHE1pml1jT6++8cfoFG3pXHBVZfy3iNBM3MD/n95OrCSy2xLKsKMbPVegPBlE/Xs+D9A7GarFQdFeJ9eV3cLqCk0OSCTFo9HD1CWlys=
   app: etsfrontend
-  on:
-    repo: AnaCaceres/ETSFrontEnd
+  on: master
