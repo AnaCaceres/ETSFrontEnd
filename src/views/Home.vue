@@ -1,12 +1,18 @@
 <template>
-  <div class="home">{{ actives }}</div>
+  <div class="home">
+    <filters></filters>
+    {{ actives }}
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import Filters from "@/components/Filters.vue";
 
 export default {
   name: "home",
+  components: {
+    Filters
+  },
   data() {
     return {
       actives: []
