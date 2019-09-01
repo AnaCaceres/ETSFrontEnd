@@ -1,6 +1,6 @@
 <template>
-  <div class="button-filter my-2 mx-auto mx-lg-0">
-    <div class="clicker align-self-center" @click="$emit('clicked', filter.name)">
+  <div class="button-filter my-2">
+    <div class="clicker" @click="$emit('clicked', filter.name)">
       <svg
         width="70"
         height="27"
@@ -40,14 +40,11 @@ export default {
 $breakpoint-desktop: 992px;
 
 .button-filter {
-  width: 170px;
   color: #bdbdbd;
-  @media (min-width: $breakpoint-desktop) {
-    width: auto;
-  }
 }
 
 .clicker {
+  width: 170px;
   cursor: pointer;
   div {
     display: inline;
