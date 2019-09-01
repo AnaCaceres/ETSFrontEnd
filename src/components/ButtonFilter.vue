@@ -1,5 +1,5 @@
 <template>
-  <div class="button-filter my-2">
+  <div class="button-filter my-5">
     <div class="clicker" @click="$emit('clicked', filter.name)">
       <svg
         width="70"
@@ -37,7 +37,6 @@ export default {
 </script>
 
 <style lang="scss">
-$breakpoint-desktop: 992px;
 
 .button-filter {
   color: #bdbdbd;
