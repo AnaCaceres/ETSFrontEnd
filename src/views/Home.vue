@@ -1,17 +1,24 @@
 <template>
-  <div class="home">
-    <filters></filters>
-    {{ actives }}
+  <div class="home container-fluid mx-0">
+    <div class="row">
+      <logo/>
+      <div class="col-12 col-lg-4">
+        <filters></filters>
+      </div>
+      <div class="col-12 col-lg-8 text-center">{{ actives }}</div>
     </div>
+  </div>
 </template>
 
 <script>
 import Filters from "@/components/Filters.vue";
+import Logo from "@/components/Logo.vue";
 
 export default {
   name: "home",
   components: {
-    Filters
+    Filters,
+    Logo
   },
   data() {
     return {
@@ -33,8 +40,15 @@ export default {
         .catch(error => console.error(error));
     }
   },
-  mounted(){
+  mounted() {
     this.fetchActives();
   }
 };
 </script>
+
+<style lang="scss">
+.home {
+  height: 100%;
+  width: 100%;
+}
+</style>

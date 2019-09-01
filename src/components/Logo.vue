@@ -1,5 +1,5 @@
 <template>
-  <div id="logo">
+  <div class="logo">
     <svg
       width="120"
       height="39"
@@ -131,24 +131,24 @@
 <script>
 export default {
   name: "logo"
-};
+}
 </script>
 
 <style lang="scss">
 $breakpoint-desktop: 992px;
 
-svg {
+.logo svg{
+  position: absolute;
   width: 84px;
   height: 27px;
-  padding-left: 16px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  left: 16px;
+  top: 16px;
+  z-index: 1;
   @media (min-width: $breakpoint-desktop) {
     width: 94px;
     height: 30px;
-    padding-left: 24px;
-    padding-top: 31px;
-    padding-bottom: 31px;
+    left: 24px;
+    top: 31px;
   }
 }
 
