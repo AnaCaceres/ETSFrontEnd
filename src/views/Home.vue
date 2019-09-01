@@ -1,11 +1,13 @@
 <template>
   <div class="home container-fluid mx-0">
     <div class="row">
-      <logo/>
+      <logo />
       <div class="col-12 col-lg-4">
-        <filters></filters>
+        <filters v-on:filterAssets="fetchOptions"></filters>
       </div>
-      <div class="col-12 col-lg-8 text-center">{{ actives }}</div>
+      <div class="col-12 col-lg-8 py-5">
+        <funds :actives="currentActives" />
+      </div>
     </div>
   </div>
 </template>
@@ -13,17 +15,34 @@
 <script>
 import Filters from "@/components/Filters.vue";
 import Logo from "@/components/Logo.vue";
+import Funds from "@/components/Funds.vue";
+import { setTimeout } from 'timers';
 
 export default {
   name: "home",
   components: {
     Filters,
-    Logo
+    Logo,
+    Funds
   },
   data() {
     return {
-      actives: []
+      actives: [],
+      currentActives: [],
+      riskFilter: "All",
+      currencyFilter: "All"
     };
+  },
+  computed: {
+    filterAssets(){
+      return this.actives.filter((asset) => {
+        if((asset.risk_family === this.riskFilter || this.riskFilter === "All") && (asset.currency === this.currencyFilter || this.currencyFilter === "All")){
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
   },
   methods: {
     fetchActives() {
@@ -36,8 +55,17 @@ export default {
         })
       })
         .then(stream => stream.json())
-        .then(data => (this.actives = data))
+        .then(data => {
+          this.actives = data;
+          this.currentActives = data;
+        })
         .catch(error => console.error(error));
+    },
+
+    fetchOptions(type) {
+      this.currencyFilter = type["Currency"];
+      this.riskFilter = type["FamilyRisk"];
+      this.currentActives = this.filterAssets;
     }
   },
   mounted() {

@@ -15,7 +15,7 @@
     <div class="col-12 col-lg-6 selector">
       <div class="row mx-0 align-items-center">
         <div class="col-12 px-0">
-          <button-options v-on:clicked-option="toggleOption" :options="options[this.current]"></button-options>
+          <button-options v-on:clicked-option="toggleOption" :options="optionSelected"></button-options>
         </div>
       </div>
     </div>
@@ -34,7 +34,12 @@ export default {
   },
   data() {
     return {
-      current: 0,
+      current: "Currency",
+      type: {
+        "Currency": "All",
+        "FamilyRisk": "All",
+      },
+      
       filters: [
         {
           name: "Currency",
@@ -107,11 +112,18 @@ export default {
       ]
     };
   },
+  computed: {
+    optionSelected() {
+      let selected;
+      this.options.map((option) => {if (option.name === this.current) selected = option});
+      return selected;
+    }
+  },
   methods: {
     toggleFilter(event) {
       this.filters.forEach((filter, index) => {
         if (filter.name === event) {
-          this.current = index;
+          this.current = filter.name;
           filter.clicked = true;
         } else {
           filter.clicked = false;
@@ -121,16 +133,20 @@ export default {
     toggleOption(event) {
       this.filters.forEach((filter) => {
         if (filter.name === event[0]) {
+          this.type[filter.name.split(" ").join('')] = event[1];
           filter.type = event[1];
         }
       })
-      this.options[this.current].buttons.forEach((option) => {
+      let selected;
+      this.options.map((option) => {if (option.name === event[0]) selected =  option});
+      selected.buttons.forEach((option) => {
         if (option.name === event[1]) {
           option.clicked = true;
         } else {
           option.clicked = false;
         }
       })
+      this.$emit('filterAssets', this.type);
     }
   }
 };
