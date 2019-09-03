@@ -1,8 +1,8 @@
 <template>
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="usd" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="12" cy="12" r="12" fill="white" />
     <mask
-      id="mask0"
+      id="maskusd"
       mask-type="alpha"
       maskUnits="userSpaceOnUse"
       x="0"
@@ -10,9 +10,9 @@
       width="24"
       height="24"
     >
-      <circle cx="12" cy="12" r="12" fill="white" />
+      <circle cx="12" cy="12" r="12" fill="white" /> -->
     </mask>
-    <g mask="url(#mask0)">
+    <g mask="url(#maskusd)">
       <rect x="1" width="22" height="4" fill="#FF003D" />
       <rect x="1" y="7" width="24" height="4" fill="#FF003D" />
       <rect x="-1" y="14" width="26" height="4" fill="#FF003D" />

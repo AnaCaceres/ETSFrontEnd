@@ -5,8 +5,8 @@
       <div class="col-12 col-lg-4">
         <filters v-on:filterAssets="fetchOptions"></filters>
       </div>
-      <div class="col-12 col-lg-8 py-5">
-        <funds :actives="currentActives" />
+      <div class="funds col-12 col-lg-8 py-5">
+        <funds :assets="currentAssets" />
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 import Filters from "@/components/Filters.vue";
 import Logo from "@/components/Logo.vue";
 import Funds from "@/components/Funds.vue";
-import { setTimeout } from 'timers';
+import { setTimeout } from "timers";
 
 export default {
   name: "home",
@@ -27,16 +27,22 @@ export default {
   },
   data() {
     return {
-      actives: [],
-      currentActives: [],
+      assets: [],
+      currentAssets: [],
       riskFilter: "All",
-      currencyFilter: "All"
+      currencyFilter: "All",
+      clickedAsset: false
     };
   },
   computed: {
-    filterAssets(){
-      return this.actives.filter((asset) => {
-        if((asset.risk_family === this.riskFilter || this.riskFilter === "All") && (asset.currency === this.currencyFilter || this.currencyFilter === "All")){
+    filterAssets() {
+      return this.assets.filter(asset => {
+        if (
+          (asset.risk_family === this.riskFilter ||
+            this.riskFilter === "All") &&
+          (asset.currency === this.currencyFilter ||
+            this.currencyFilter === "All")
+        ) {
           return true;
         } else {
           return false;
@@ -45,7 +51,7 @@ export default {
     }
   },
   methods: {
-    fetchActives() {
+    fetchAssets() {
       fetch("http://jsonstub.com/symbols", {
         method: "GET",
         headers: new Headers({
@@ -56,8 +62,8 @@ export default {
       })
         .then(stream => stream.json())
         .then(data => {
-          this.actives = data;
-          this.currentActives = data;
+          this.assets = data;
+          this.currentAssets = data;
         })
         .catch(error => console.error(error));
     },
@@ -65,18 +71,40 @@ export default {
     fetchOptions(type) {
       this.currencyFilter = type["Currency"];
       this.riskFilter = type["FamilyRisk"];
-      this.currentActives = this.filterAssets;
+      this.currentAssets = this.filterAssets;
+    },
+    
+    changeView(asset) {
+      console.log(asset);
     }
   },
   mounted() {
-    this.fetchActives();
+    this.fetchAssets();
+    Event.$on("clickedAsset", asset => {
+      this.changeView(asset);
+    });
   }
 };
 </script>
 
 <style lang="scss">
+$breakpoint-desktop: 992px;
 .home {
   height: 100%;
   width: 100%;
+}
+.funds {
+  @media (min-width: $breakpoint-desktop) {
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+#customPointer {
+  z-index: 10;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: none;
 }
 </style>

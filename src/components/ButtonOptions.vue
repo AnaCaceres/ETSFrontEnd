@@ -34,8 +34,6 @@ export default {
 </script>
 
 <style lang="scss">
-$breakpoint-desktop: 992px;
-
 p {
   display: inline;
 }

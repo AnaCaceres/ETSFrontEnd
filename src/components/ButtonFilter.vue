@@ -43,7 +43,6 @@ export default {
 }
 
 .clicker {
-  width: 170px;
   cursor: pointer;
   div {
     display: inline;
