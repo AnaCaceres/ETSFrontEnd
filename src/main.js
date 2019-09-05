@@ -9,7 +9,6 @@ window.$ = require('jquery')
 window.JQuery = require('jquery')
 
 Vue.config.productionTip = false;
-window.Event = new Vue();
 new Vue({
   router,
   render: h => h(App)

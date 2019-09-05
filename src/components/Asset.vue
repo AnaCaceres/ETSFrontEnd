@@ -1,8 +1,9 @@
 <template>
-  <div
-    @mouseover="hovered = true"
-    @mouseleave="hovered = false"
-    @click="clickedAsset"
+  <router-link
+    @mouseover.native="hovered = true"
+    @mouseleave.native="hovered = false"
+    :to="'/asset/' + this.information.id"
+    tag="div"
     class="asset row mx-auto mb-4"
   >
     <div class="asset-col name col-12 col-lg-6 d-flex align-items-center">{{ information.name }}</div>
@@ -10,21 +11,17 @@
       <div class="row w-100">
         <div class="col-6 p-0 d-flex justify-content-center">
           <currency-icon class="mr-1 my-auto" :hovered="hovered" />
-          <p :class="{hovered : hovered}" class="m-0 mr-2 my-auto type">
-            currency
-          </p>
-          <p class="my-auto">{{ information.currency }}</p>
+          <p :class="{hovered : hovered}" class="m-0 mr-2 my-auto type">currency</p>
+          <p class="my-auto asset-info">{{ information.currency }}</p>
         </div>
         <div class="col-6 p-0 d-flex justify-content-center">
           <risk-icon class="mr-1 my-auto" :hovered="hovered" />
-          <p :class="{hovered : hovered}" class="m-0 mr-2 my-auto type">
-            family risk
-          </p>
-          <p class="my-auto">{{ information.risk_family }}</p>
+          <p :class="{hovered : hovered}" class="m-0 mr-2 my-auto type">family risk</p>
+          <p class="my-auto asset-info">{{ information.risk_family }}</p>
         </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -42,11 +39,6 @@ export default {
     return {
       hovered: false
     };
-  },
-  methods: {
-    clickedAsset(event) {
-      Event.$emit("clickedAsset", this.information);
-    }
   }
 };
 </script>
@@ -55,7 +47,7 @@ export default {
 $breakpoint-desktop: 992px;
 
 .type {
-  font-family: Open Sans;
+  font-family: 'Open Sans';
   font-style: normal;
   font-weight: bold;
   font-size: 10px;
@@ -95,6 +87,15 @@ $breakpoint-desktop: 992px;
 }
 
 .name {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.15px;
+  color: #4F4F4F;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   @media (min-width: $breakpoint-desktop) {

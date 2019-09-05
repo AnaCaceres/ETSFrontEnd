@@ -9,6 +9,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "apexcharts": "^3.8.5",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
@@ -16,6 +17,7 @@
     "popper.js": "^1.15.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-apexcharts": "^1.4.0",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {

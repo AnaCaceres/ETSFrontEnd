@@ -80,9 +80,6 @@ export default {
   },
   mounted() {
     this.fetchAssets();
-    Event.$on("clickedAsset", asset => {
-      this.changeView(asset);
-    });
   }
 };
 </script>
@@ -98,13 +95,5 @@ $breakpoint-desktop: 992px;
     height: 100vh;
     overflow-y: auto;
   }
-}
-
-#customPointer {
-  z-index: 10;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  display: none;
 }
 </style>
