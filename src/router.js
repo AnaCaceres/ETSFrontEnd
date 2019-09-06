@@ -19,6 +19,10 @@ export default new Router({
       name: "asset-information",
       component: AssetInformation,
       props: true
+    },
+    {
+      path: "*",
+      redirect: "/"
     }
   ]
 });
