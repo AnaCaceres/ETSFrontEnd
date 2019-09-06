@@ -67,9 +67,41 @@
             <p class="asset-detail d-block">{{ this.asset.sector.name }}</p>
           </div>
         </div>
-        <div class="row navigation">
-          <router-link to="/"></router-link>
-          <router-link to="/"></router-link>
+        <div class="row align-items-center justify-content-end">
+          <router-link
+            v-if="this.previous.id !== this.next.id"
+            tag="div"
+            @mouseover.native="hoveredBackwards = true"
+            @mouseleave.native="hoveredBackwards = false"
+            class="button-div col-3 col-lg-6 d-flex align-items-center justify-content-center navigation"
+            :to="'/asset/' + this.previous.id"
+          >
+            <div class="row">
+              <div class="col-10 d-none d-lg-block px-0 align-self-center">
+                <p :class="{hoveredRoute : hoveredBackwards}">{{ this.previous.name }}</p>
+              </div>
+              <div class="col-12 col-lg-2 px-0">
+                <backwards-button :hoveredBackwards="hoveredBackwards" />
+              </div>
+            </div>
+          </router-link>
+          <router-link
+            v-if="this.previous.id != this.$store.state.current"
+            tag="div"
+            @mouseover.native="hoveredForwards = true"
+            @mouseleave.native="hoveredForwards = false"
+            class="button-div col-3 col-lg-6 d-flex align-items-center justify-content-center navigation"
+            :to="'/asset/' + this.next.id"
+          >
+            <div class="row">
+              <div class="col-12 col-lg-2 px-0">
+                <forwards-button :hoveredForwards="hoveredForwards" />
+              </div>
+              <div class="col-10 d-none d-lg-block px-0 align-self-center">
+                <p :class="{hoveredRoute : hoveredForwards}">{{ this.next.name }}</p>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -79,16 +111,21 @@
 <script>
 import Logo from "@/components/Logo.vue";
 import Chart from "@/components/Chart.vue";
+import ForwardsButton from "@/components/SVG/ForwardsButton.vue";
+import BackwardsButton from "@/components/SVG/BackwardsButton.vue";
 
 export default {
   name: "asset-information",
-  props: ["id"],
   components: {
     Logo,
-    Chart
+    Chart,
+    ForwardsButton,
+    BackwardsButton
   },
   data() {
     return {
+      hoveredBackwards: false,
+      hoveredForwards: false,
       asset: [],
       options: {
         chart: {
@@ -179,12 +216,14 @@ export default {
           name: "price",
           data: []
         }
-      ]
+      ],
+      next: this.$store.state.next,
+      previous: this.$store.state.previous
     };
   },
   methods: {
     fetchAsset() {
-      fetch("http://jsonstub.com/" + this.id, {
+      fetch("http://jsonstub.com/" + this.$route.params.id, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -195,13 +234,23 @@ export default {
         .then(stream => stream.json())
         .then(data => {
           this.asset = data;
+          this.options.labels = [];
+          this.series[0].data = [];
           this.asset.prices.forEach(price => {
             this.options.labels.push(price.date);
             this.series[0].data.push(price.value);
           });
+          this.next = this.$store.state.next;
+          this.previous = this.$store.state.previous;
         })
         .catch(error => console.error(error));
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.$store.dispatch("saveAssets", to.params.id);
+    this.$route.params.id = to.params.id;
+    this.fetchAsset();
+    next();
   },
   mounted() {
     this.fetchAsset();
@@ -296,7 +345,28 @@ $breakpoint-desktop: 992px;
   stroke-opacity: 0.2;
 }
 
+.button-div {
+  cursor: pointer;
+}
+
+.hoveredRoute {
+  color: #02b5c4;
+}
+
 .apexcharts-canvas {
   margin: 0 auto;
+}
+
+.navigation {
+  font-family: "Open Sans Condensed";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  letter-spacing: 0.15px;
+  color: #4f4f4f;
 }
 </style>

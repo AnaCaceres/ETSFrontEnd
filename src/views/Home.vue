@@ -63,7 +63,18 @@ export default {
         .then(stream => stream.json())
         .then(data => {
           this.assets = data;
-          this.currentAssets = data;
+          if (
+            this.$store.state.currentAssets !== [] &&
+            this.$store.state.riskFilter !== "" &&
+            this.$store.state.currencyFilter != ""
+          ) {
+            this.currentAssets = this.$store.state.currentAssets;
+            this.riskFilter = this.$store.state.riskFilter;
+            this.currencyFilter = this.$store.state.currencyFilter;
+          } else {
+            this.currentAssets = data;
+          }
+          this.$store.commit("addCurrentList", this.$data);
         })
         .catch(error => console.error(error));
     },
@@ -72,10 +83,7 @@ export default {
       this.currencyFilter = type["Currency"];
       this.riskFilter = type["FamilyRisk"];
       this.currentAssets = this.filterAssets;
-    },
-    
-    changeView(asset) {
-      console.log(asset);
+      this.$store.commit("addCurrentList", this.$data);
     }
   },
   mounted() {

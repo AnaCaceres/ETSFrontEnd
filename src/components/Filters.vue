@@ -36,10 +36,10 @@ export default {
     return {
       current: "Currency",
       type: {
-        "Currency": "All",
-        "FamilyRisk": "All",
+        Currency: "All",
+        FamilyRisk: "All"
       },
-      
+
       filters: [
         {
           name: "Currency",
@@ -115,8 +115,31 @@ export default {
   computed: {
     optionSelected() {
       let selected;
-      this.options.map((option) => {if (option.name === this.current) selected = option});
+      this.options.map(option => {
+        if (option.name === this.current) selected = option;
+      });
       return selected;
+    }
+  },
+  mounted() {
+    if (this.$store.state.riskFilter !== "" && this.$store.state.currencyFilter !== "") {
+      console.log("entro")
+      this.filters[0].type = this.$store.state.currencyFilter;
+      this.filters[1].type = this.$store.state.riskFilter;
+      this.options[0].buttons.forEach(option => {
+        if (option.name === this.$store.state.currencyFilter) {
+          option.clicked = true;
+        } else {
+          option.clicked = false;
+        }
+      });
+      this.options[1].buttons.forEach(option => {
+        if (option.name === this.$store.state.riskFilter) {
+          option.clicked = true;
+        } else {
+          option.clicked = false;
+        }
+      });
     }
   },
   methods: {
@@ -131,22 +154,24 @@ export default {
       });
     },
     toggleOption(event) {
-      this.filters.forEach((filter) => {
+      this.filters.forEach(filter => {
         if (filter.name === event[0]) {
-          this.type[filter.name.split(" ").join('')] = event[1];
+          this.type[filter.name.split(" ").join("")] = event[1];
           filter.type = event[1];
         }
-      })
+      });
       let selected;
-      this.options.map((option) => {if (option.name === event[0]) selected =  option});
-      selected.buttons.forEach((option) => {
+      this.options.map(option => {
+        if (option.name === event[0]) selected = option;
+      });
+      selected.buttons.forEach(option => {
         if (option.name === event[1]) {
           option.clicked = true;
         } else {
           option.clicked = false;
         }
-      })
-      this.$emit('filterAssets', this.type);
+      });
+      this.$emit("filterAssets", this.type);
     }
   }
 };

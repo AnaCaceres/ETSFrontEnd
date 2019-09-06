@@ -2,6 +2,7 @@
   <router-link
     @mouseover.native="hovered = true"
     @mouseleave.native="hovered = false"
+    @click.native="saveCurrent"
     :to="'/asset/' + this.information.id"
     tag="div"
     class="asset row mx-auto mb-4"
@@ -39,6 +40,11 @@ export default {
     return {
       hovered: false
     };
+  },
+  methods: {
+    saveCurrent(){
+      this.$store.dispatch('saveAssets', this.information.id);
+    }
   }
 };
 </script>
